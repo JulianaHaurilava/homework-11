@@ -30,36 +30,52 @@ namespace task_11
 
             string[] WorkerTypes = { "Консультант", "Менеджер" };
             cbWorkerType.ItemsSource = WorkerTypes;
-            lClientInfo.ItemsSource = r.allUsers;
         }
 
         private void lClientInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            spClientInfo.Visibility = Visibility.Visible;
+            switch ((string)cbWorkerType.SelectedItem)
+            {
+                case "Консультант":
+                    stm.ChangeState(spConsultantUserMenu);
+                    break;
+                case "Менеджер":
+                    stm.ChangeState(spManagerUserMenu);
+                    break;
+            }
         }
 
         private void cbWorkerType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((string)cbWorkerType.SelectedItem == "Консультант")
+            lClientInfo.ItemsSource = r.allUsers;
+            switch ((string)cbWorkerType.SelectedItem)
             {
-                stm.ChangeState(spConsultantMenu);
+                case "Консультант":
+                    gvcPassportSeries.DisplayMemberBinding = new Binding("HiddenPassportSeries");
+                    gvcPassportNumber.DisplayMemberBinding = new Binding("HiddenPassportNumber");
+                    stm.ChangeState(spConsultantMenu);
+                    break;
+                case "Менеджер":
+                    gvcPassportSeries.DisplayMemberBinding = new Binding("PassportSeries");
+                    gvcPassportNumber.DisplayMemberBinding = new Binding("PassportNumber");
+                    stm.ChangeState(spManagerMenu);
+                    break;
             }
-            else stm.ChangeState(spManagerMenu);
         }
 
         private void bEditClientC_Click(object sender, RoutedEventArgs e)
         {
-
+            stm.ChangeState(spClientInfoEditC);
         }
 
         private void bSortClientsC_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void bEditClientM_Click(object sender, RoutedEventArgs e)
         {
-
+            stm.ChangeState(spClientInfoEditM);
         }
 
         private void bAddNewClient_Click(object sender, RoutedEventArgs e)
@@ -70,6 +86,32 @@ namespace task_11
         private void bDeleteClient_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void bReturnToMenuM_Click(object sender, RoutedEventArgs e)
+        {
+            lClientInfo.SelectedItem = null;
+            stm.ChangeState(spManagerMenu);
+        }
+
+        private void bReturnToMenuC_Click(object sender, RoutedEventArgs e)
+        {
+            lClientInfo.SelectedItem = null;
+            stm.ChangeState(spConsultantMenu);
+        }
+
+        private void bConfirmChangesM_Click(object sender, RoutedEventArgs e)
+        {
+            lClientInfo.Items.Refresh();
+            r.AllInFile();
+            stm.ChangeState(spManagerUserMenu);
+        }
+
+        private void bConfirmChangesC_Click(object sender, RoutedEventArgs e)
+        {
+            lClientInfo.Items.Refresh();
+            r.AllInFile();
+            stm.ChangeState(spConsultantUserMenu);
         }
     }
 }

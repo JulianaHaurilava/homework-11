@@ -14,6 +14,18 @@ namespace task_11
 
         public string PassportNumber { get; set; }
 
+        public string HiddenPassportSeries
+        {
+            get => "**";
+            set => HiddenPassportSeries = value;
+        }
+
+        public string HiddenPassportNumber
+        {
+            get => "*******";
+            set => HiddenPassportSeries = value;
+        }
+
         public User()
         {
             Surname = "";

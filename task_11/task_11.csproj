@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PhoneNumberToStringConverter.cs" />
     <Compile Include="StateMachine.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="User.cs" />
