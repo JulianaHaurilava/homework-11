@@ -35,15 +35,9 @@
         void ChangePassportInfo(User userToEdit);
 
         /// <summary>
-        /// Создает нового клиента
-        /// </summary>
-        /// <returns></returns>
-        User CreateUserFromConsole();
-
-        /// <summary>
         /// Добавляет нового клиента в репозиторий
         /// </summary>
         /// <param name="newUser"></param>
-        void AddNewUser(User newUser);
+        bool AddNewUser(User newUser);
     }
 }

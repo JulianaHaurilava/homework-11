@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace task_11
 {
@@ -9,11 +11,20 @@ namespace task_11
 
         private string fileName; // Имя файла
 
-        public List<User> allUsers; // Коллекция клиентов банка
+        private List<User> allUsers; // Коллекция клиентов банка
+
+        public List<User> AllUsers
+        {
+            get => allUsers;
+            set
+            {
+                allUsers = value;
+            }
+        }
         public Repository(string fileName)
         {
             this.fileName = fileName;
-            allUsers = new List<User>();
+            AllUsers = new List<User>();
             ReadFile();
         }
 
@@ -22,11 +33,11 @@ namespace task_11
         /// </summary>
         /// <param name="phoneNumber"></param>
         /// <returns></returns>
-        public User FindUserByPhoneNumber(string phoneNumber)
+        public User FindUserByPhoneNumber(PhoneNumber newPhoneNumber)
         {
-            foreach (User user in allUsers)
+            foreach (User user in AllUsers)
             {
-                if (user.PhoneNumber == new PhoneNumber(phoneNumber))
+                if (user.PhoneNumber == newPhoneNumber)
                     return user;
             }
             return new User();

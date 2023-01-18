@@ -18,10 +18,11 @@ namespace task_11
         /// <returns></returns>
         protected User FindUserByPhoneNumber()
         {
-            Console.Write("Введите номер телефона клиента: ");
-            string phoneNumber = Console.ReadLine();
-            Console.WriteLine();
-            return r.FindUserByPhoneNumber(phoneNumber);
+            //Console.Write("Введите номер телефона клиента: ");
+            //string phoneNumber = Console.ReadLine();
+            //Console.WriteLine();
+            //return r.FindUserByPhoneNumber(phoneNumber);
+            return new User();
         }
 
         /// <summary>
@@ -30,17 +31,17 @@ namespace task_11
         /// <param name="userToEdit"></param>
         public void ChangePhoneNumber(User userToEdit)
         {
-            Console.Write("Введите новый номер клиента: ");
-            string phoneNumber = Console.ReadLine();
-            if (r.FindUserByPhoneNumber(phoneNumber).Name == "")
-            {
-                userToEdit.PhoneNumber = new PhoneNumber(phoneNumber);
-                Change lastChange = new Change(InfoToChange.PhoneNumber, TypeOfChange.Editing, WorkerType.Consultant);
-                lastChange.WriteLastChangeInFile();
-                r.AllInFile();
-                return;
-            }
-            else Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
+            //Console.Write("Введите новый номер клиента: ");
+            //string phoneNumber = Console.ReadLine();
+            //if (r.FindUserByPhoneNumber(phoneNumber).Name == "")
+            //{
+            //    userToEdit.PhoneNumber = new PhoneNumber(phoneNumber);
+            //    Change lastChange = new Change(InfoToChange.PhoneNumber, TypeOfChange.Editing, WorkerType.Consultant);
+            //    lastChange.WriteLastChangeInFile();
+            //    r.AllInFile();
+            //    return;
+            //}
+            //else Console.WriteLine("Клиент с введенным номером телефона уже зарегистрирован в системе!");
         }
 
         /// <summary>
