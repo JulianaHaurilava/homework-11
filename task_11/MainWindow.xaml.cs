@@ -13,22 +13,102 @@ namespace task_11
     /// </summary>
     public partial class MainWindow : Window
     {
+        class StateMachine
+        {
+            private StackPanel spCurrentPanel;
+
+            public void ChangeState(StackPanel chosenMenu)
+            {
+                if (spCurrentPanel != null)
+                {
+                    spCurrentPanel.Visibility = Visibility.Hidden;
+                }
+                chosenMenu.Visibility = Visibility.Visible;
+                spCurrentPanel = chosenMenu;
+            }
+        }
+        class AddNewUserButtonEnabled
+        {
+            private bool surnameNotEmpty;
+            public bool SurnameNotEmpty
+            {
+                set => surnameNotEmpty = value;
+            }
+
+            private bool nameNotEmpty;
+            public bool NameNotEmpty
+            {
+                set => nameNotEmpty = value;
+            }
+
+            private bool patronymicNotEmpty;
+            public bool PatronymicNotEmpty
+            {
+                set => patronymicNotEmpty = value;
+            }
+
+            private bool phoneNumberNotEmpty;
+            public bool PhoneNumberNotEmpty
+            {
+                set => phoneNumberNotEmpty = value;
+            }
+
+            private bool departmentNotEmpty;
+            public bool DepartmentNotEmpty
+            {
+                set => departmentNotEmpty = value;
+            }
+
+            private bool seriesNotEmpty;
+            public bool SeriesNotEmpty
+            {
+                set
+                => seriesNotEmpty = value;
+            }
+
+            private bool numberNotEmpty;
+            public bool NumberNotEmpty
+            {
+                set
+                => numberNotEmpty = value;
+            }
+
+            public AddNewUserButtonEnabled()
+            {
+                surnameNotEmpty = false;
+                nameNotEmpty = false;
+                patronymicNotEmpty = false;
+                phoneNumberNotEmpty = false;
+                seriesNotEmpty = false;
+                numberNotEmpty = false;
+            }
+            public bool ButtonIsEnabled()
+            {
+                return surnameNotEmpty && nameNotEmpty && patronymicNotEmpty &&
+                    phoneNumberNotEmpty && numberNotEmpty && seriesNotEmpty;
+            }
+        }
+
         Repository r;
         StateMachine stm;
         AddNewUserButtonEnabled anu;
+
         Manager m;
         Consultant c;
         public MainWindow()
         {
             InitializeComponent();
-            r = new Repository("all_users.txt");
+            r = new Repository("all_users.txt", "all_departments.txt");
             stm = new StateMachine();
             anu = new AddNewUserButtonEnabled();
+
             m = new Manager(r);
             c = new Consultant(r);
 
             string[] WorkerTypes = { "Консультант", "Менеджер" };
             cbWorkerType.ItemsSource = WorkerTypes;
+            cbDepartment.ItemsSource = r.AllDepartments;
+            cbDepartmentAdd.ItemsSource = r.AllDepartments;
         }
 
         private void lClientInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -112,7 +192,7 @@ namespace task_11
             lClientInfo.SelectedItem = null;
             stm.ChangeState(spManagerMenu);
         }
-        
+
         private void ReturnToMenuM_ClearInfo(object sender, RoutedEventArgs e)
         {
             lClientInfo.SelectedItem = null;
@@ -130,7 +210,7 @@ namespace task_11
         private void SaveNewClientM(object sender, RoutedEventArgs e)
         {
             User newUser = new User(tbSurname.Text, tbName.Text, tbPatronymic.Text,
-                tbPhoneNumber.Text, tbSeries.Text, tbNumber.Text);
+                tbPhoneNumber.Text, cbDepartmentAdd.Text, tbSeries.Text, int.Parse(tbNumber.Text));
 
             if (!m.AddNewUser(newUser))
             {
@@ -152,7 +232,6 @@ namespace task_11
             else anu.SurnameNotEmpty = false;
 
             bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
         }
         private void NameTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -161,7 +240,6 @@ namespace task_11
             else anu.NameNotEmpty = false;
 
             bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
         }
         private void PatronymicTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -170,7 +248,6 @@ namespace task_11
             else anu.PatronymicNotEmpty = false;
 
             bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
         }
         private void PhoneNumberTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -188,7 +265,6 @@ namespace task_11
             else anu.SeriesNotEmpty = false;
 
             bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
         }
         private void NumberTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -197,7 +273,11 @@ namespace task_11
             else anu.NumberNotEmpty = false;
 
             bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
+        }
+        private void DepartmentTextChanged(object sender, TextChangedEventArgs e)
+        {
+            anu.DepartmentNotEmpty = true;
+            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
         }
 
         private void ClearAllAddingTextBoxes()
@@ -208,6 +288,11 @@ namespace task_11
             tbPhoneNumber.Clear();
             tbSeries.Clear();
             tbNumber.Clear();
+        }
+
+        private void DepartmentTextChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

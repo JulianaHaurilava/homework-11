@@ -1,18 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace task_11
 {
     class User
     {
+        static public ulong ID { get; set; }
+        static User()
+        {
+            string stringID = (DateTime.Now.Year % 100).ToString() + DateTime.Now.Month.ToString("00") +
+                              DateTime.Now.Day.ToString("00") + DateTime.Now.Hour.ToString("00") +
+                              DateTime.Now.Minute.ToString("00") + DateTime.Now.Second.ToString("00");
+            ID = ulong.Parse(stringID);
+        }
+        static ulong GetNextID()
+        {
+            return ++ID;
+        }
+
         public string Surname { get; set; }
         public string Name { get; set; }
         public string Patronymic { get; set; }
 
         public PhoneNumber PhoneNumber { get; set; }
 
+        public Department Department { get; set; }
+
         public string PassportSeries { get; set; }
 
-        public string PassportNumber { get; set; }
+        public int PassportNumber { get; set; }
 
         public string HiddenPassportSeries
         {
@@ -32,63 +48,41 @@ namespace task_11
             Name = "";
             Patronymic = "";
             PhoneNumber = new PhoneNumber();
+            Department = new Department();
             PassportSeries = "";
-            PassportNumber = "";
+            PassportNumber = 0;
         }
 
         public User(string userInfo)
         {
             string[] userInfoArray = userInfo.Split(' ');
-            Surname = userInfoArray[0];
-            Name = userInfoArray[1];
-            Patronymic = userInfoArray[2];
-            PhoneNumber = new PhoneNumber(userInfoArray[3]);
-            PassportSeries = userInfoArray[4];
-            PassportNumber = userInfoArray[5];
+            ID = ulong.Parse(userInfoArray[0]);
+            Surname = userInfoArray[1];
+            Name = userInfoArray[2];
+            Patronymic = userInfoArray[3];
+            PhoneNumber = new PhoneNumber(userInfoArray[4]);
+            Department = new Department(userInfoArray[5]);
+            PassportSeries = userInfoArray[6];
+            PassportNumber = int.Parse(userInfoArray[7]);
         }
 
         public User(string surname, string name, string patronymic,
-            string phoneNumber, string passportSeries, string passportNumber)
+            string phoneNumber, string departmentName, string passportSeries, int passportNumber)
         {
+            ID = GetNextID();
             Surname = surname;
             Name = name;
             Patronymic = patronymic;
             PhoneNumber = new PhoneNumber(phoneNumber);
+            Department = new Department(departmentName);
             PassportSeries = passportSeries;
             PassportNumber = passportNumber;
         }
 
-        /// <summary>
-        /// Выводит информацию обо всех клиентах
-        /// </summary>
-        /// <param name="workerType"></param>
-        public void Print(WorkerType workerType)
+        public override string ToString()
         {
-            Console.Write($"Ф.И.О: {Surname + " " + Name + " " + Patronymic}\n" +
-                $"Номер телефона: {PhoneNumber}\n");
-            if (!String.IsNullOrEmpty(PassportSeries))
-                switch (workerType)
-                {
-                    case WorkerType.Consultant:
-                        Console.Write($"Серия и номер паспорта: *********\n");
-                        break;
-                    case WorkerType.Manager:
-                        Console.Write($"Серия и номер паспорта: {PassportSeries + PassportNumber}\n");
-                        break;
-                    default:
-                        break;
-                }
-            else Console.Write($"Серия и номер паспорта: данные не указаны\n");
-        }
-
-        /// <summary>
-        /// Конвертирует информацию о клиенте в строку для записи в файл
-        /// </summary>
-        /// <returns></returns>
-        public string CreateStringForFile()
-        {
-            return Surname + " " + Name + " " + Patronymic + " " + PhoneNumber.CreateStringForFile() +
-                " " + PassportSeries + " " + PassportNumber;
+            return ID + " " + Surname + " " + Name + " " + Patronymic + " " + PhoneNumber.ReturnSimpleNumber() +
+                " " + Department + " " + PassportSeries + " " + PassportNumber;
         }
     }
 }

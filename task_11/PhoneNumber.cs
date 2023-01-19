@@ -1,6 +1,6 @@
 ﻿namespace task_11
 {
-    struct PhoneNumber
+    class PhoneNumber
     {
         string countryCode;
         string cityCode;
@@ -15,7 +15,14 @@
             countryCode = phoneNumber;
         }
 
-        public string CreateStringForFile()
+        public PhoneNumber()
+        {
+            countryCode = "";
+            cityCode = "";
+            number = "";
+        }
+
+        public string ReturnSimpleNumber()
         {
             return countryCode + cityCode + number;
         }
@@ -32,34 +39,24 @@
                     outCountryCode = countryCode;
                     break;
             }
-            return outCountryCode + " ("+ cityCode + ") " + string.Format("{0:###-##-##}", int.Parse(number));
+            return outCountryCode + " (" + cityCode + ") " + string.Format("{0:###-##-##}", int.Parse(number));
         }
 
-        public static bool operator ==(PhoneNumber phoneNumber_1, PhoneNumber phoneNumber_2)
+        public static bool operator ==(PhoneNumber phn_1, PhoneNumber phn_2)
         {
-            return phoneNumber_1.countryCode == phoneNumber_2.countryCode &&
-                phoneNumber_1.cityCode == phoneNumber_2.cityCode &&
-                phoneNumber_1.number == phoneNumber_2.number;
+            return phn_1.countryCode == phn_2.countryCode &&
+                phn_1.cityCode == phn_2.cityCode &&
+                phn_1.number == phn_2.number;
         }
 
-        public static bool operator !=(PhoneNumber phoneNumber_1, PhoneNumber phoneNumber_2)
+        public static bool operator !=(PhoneNumber phn_1, PhoneNumber phn_2)
         {
-            return !(phoneNumber_1 == phoneNumber_2);
+            return !(phn_1 == phn_2);
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(obj, null))
-            {
-                return false;
-            }
-
-            throw new System.NotImplementedException();
+            return ReferenceEquals(this, obj) ? true : ReferenceEquals(obj, null) ? false : throw new System.NotImplementedException();
         }
 
         public override int GetHashCode()

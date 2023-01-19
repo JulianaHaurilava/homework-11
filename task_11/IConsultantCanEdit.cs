@@ -2,10 +2,6 @@
 {
     interface IConsultantCanEdit
     {
-        /// <summary>
-        /// Меняет номер телефона клиента
-        /// </summary>
-        /// <param name="userToEdit"></param>
-        void ChangePhoneNumber(User userToEdit);
+        bool ChangePhoneNumber(User userToEdit, string newPhoneNumber);
     }
 }

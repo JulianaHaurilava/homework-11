@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:task_11"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="990">
+        Title="MainWindow" Height="450" Width="1060">
     <Window.Resources>
         <local:PhoneNumberToStringConverter x:Key="phoneNumberConverter"/>
         <ControlTemplate TargetType="Button" x:Key="bReturnToMenuTemplate">
@@ -31,11 +31,11 @@
               Margin="329,10,0,0"
               VerticalAlignment="Top"
               SelectionMode="Single"
-              Width="644"
+              Width="715"
               SelectionChanged="lClientInfo_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Number}" Width="20" Header="№"></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding ID}" Width="90" Header="ID"></GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Surname}" Width="120" Header="Фамилия"></GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="80" Header="Имя"></GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Patronymic}" Width="120" Header="Отчество"></GridViewColumn>
@@ -53,7 +53,17 @@
             Margin="10,10,0,0"
             VerticalAlignment="Top"
             Width="310"/>
-
+        <ComboBox x:Name="cbDepartment"
+            HorizontalAlignment="Left"
+                  Margin="10,47,0,0"
+                  VerticalAlignment="Top"
+                  Width="310">
+            <!--<ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Department}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>-->
+        </ComboBox>
 
         <StackPanel x:Name="spConsultantMenu"
                    Visibility="Hidden">
@@ -98,7 +108,7 @@
         <StackPanel x:Name="spClientInfoEditC"
             Visibility="Hidden">
 
-            
+
             <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuC">
@@ -217,7 +227,7 @@
                    Visibility="Hidden">
             <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
-                Click="ReturnToMenuC">
+                Click="ReturnToMenuM">
             </Button>
             <TextBlock
             HorizontalAlignment="Center"
@@ -330,7 +340,7 @@
         </StackPanel>
         <StackPanel x:Name="spAddClientM"
             HorizontalAlignment="Left"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuM_ClearInfo">
@@ -350,7 +360,6 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
-                    Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Surname}"
                     HorizontalAlignment="Right"
                     TextChanged="SurnameTextChanged"/>
             </Grid>
@@ -362,7 +371,6 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
-                    Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Name}"
                     HorizontalAlignment="Right"
                     TextChanged="NameTextChanged"/>
             </Grid>
@@ -374,7 +382,6 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
-                    Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Patronymic}"
                     HorizontalAlignment="Right"
                     TextChanged="PatronymicTextChanged"/>
             </Grid>
@@ -386,34 +393,36 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
-                    Text="{Binding ElementName=lClientInfo, Path=SelectedItem.PhoneNumber, Converter={StaticResource phoneNumberConverter}}"
                     HorizontalAlignment="Right"
                     TextChanged="PhoneNumberTextChanged"/>
             </Grid>
             <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Серия: "></TextBlock>
-                <TextBox x:Name="tbSeries"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
+                <TextBlock Text=" Департамент: "></TextBlock>
+                <ComboBox x:Name="cbDepartmentAdd"
                     Width="200"
-                    Text="{Binding ElementName=lClientInfo, Path=SelectedItem.HiddenPassportSeries}"
                     HorizontalAlignment="Right"
-                    TextChanged="SeriesTextChanged"/>
+                    SelectionChanged="DepartmentTextChanged"/>
             </Grid>
             <Grid
                 Margin="0,5,5,0">
                 <TextBlock Text=" Номер паспорта: "></TextBlock>
+                <TextBox x:Name="tbSeries"
+                    TextWrapping="Wrap"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Width="50"
+                    HorizontalAlignment="Right"
+                    TextChanged="SeriesTextChanged" Margin="0,0,150,0"/>
                 <TextBox x:Name="tbNumber"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Width="200"
-                    Text="{Binding ElementName=lClientInfo, Path=SelectedItem.HiddenPassportNumber}"
+                    Width="145"
                     HorizontalAlignment="Right"
                     TextChanged="NumberTextChanged"/>
             </Grid>
+
             <TextBlock
                 x:Name="tbxPhoneNumberError"
                 Margin="0,5,0,0"
@@ -421,7 +430,7 @@
                 HorizontalAlignment="Center"
                 Foreground="Red"
                 Visibility="Hidden">
-                
+
             </TextBlock>
             <Button x:Name="bSaveNewClientM"
                 Margin="10,10,10,0"
@@ -438,6 +447,7 @@
             VerticalAlignment="Top"
             Width="310"
             Visibility="Hidden"/>
+
 
 
     </Grid>

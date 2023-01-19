@@ -9,38 +9,31 @@ namespace task_11
     class Repository
     {
 
-        private string fileName; // Имя файла
+        private string usersFileName;
+        private string departmentsFileName;
 
-        private List<User> allUsers; // Коллекция клиентов банка
-
-        public List<User> AllUsers
+        public List<User> AllUsers { get; set; } // Коллекция клиентов банка
+        public List<Department> AllDepartments { get; set; }
+        public Repository(string usersFileName, string departmentsFileName)
         {
-            get => allUsers;
-            set
-            {
-                allUsers = value;
-            }
-        }
-        public Repository(string fileName)
-        {
-            this.fileName = fileName;
+            this.usersFileName = usersFileName;
+            this.departmentsFileName = departmentsFileName;
             AllUsers = new List<User>();
+            AllDepartments = new List<Department>();
             ReadFile();
         }
 
-        /// <summary>
-        /// Ищет клиента по номеру телефона
-        /// </summary>
-        /// <param name="phoneNumber"></param>
-        /// <returns></returns>
-        public User FindUserByPhoneNumber(PhoneNumber newPhoneNumber)
+        public User this[PhoneNumber phoneNumber]
         {
-            foreach (User user in AllUsers)
+            get
             {
-                if (user.PhoneNumber == newPhoneNumber)
-                    return user;
+                foreach (User user in AllUsers)
+                {
+                    if (user.PhoneNumber == phoneNumber)
+                        return user;
+                }
+                return new User();
             }
-            return new User();
         }
 
         /// <summary>
@@ -48,13 +41,23 @@ namespace task_11
         /// </summary>
         private void ReadFile()
         {
-            if (File.Exists(fileName))
+            if (File.Exists(usersFileName))
             {
-                using (StreamReader stream = new StreamReader(fileName, true))
+                using (StreamReader stream = new StreamReader(usersFileName, true))
                 {
                     while (!stream.EndOfStream)
                     {
-                        allUsers.Add(new User(stream.ReadLine()));
+                        AllUsers.Add(new User(stream.ReadLine()));
+                    }
+                }
+            }
+            if (File.Exists(departmentsFileName))
+            {
+                using (StreamReader stream = new StreamReader(departmentsFileName, true))
+                {
+                    while (!stream.EndOfStream)
+                    {
+                        AllDepartments.Add(new Department(stream.ReadLine()));
                     }
                 }
             }
@@ -65,29 +68,11 @@ namespace task_11
         /// </summary>
         public void AllInFile()
         {
-            using (StreamWriter stream = new StreamWriter(fileName))
+            using (StreamWriter stream = new StreamWriter(usersFileName))
             {
-                foreach (User user in allUsers)
+                foreach (User user in AllUsers)
                 {
-                    stream.WriteLine(user.CreateStringForFile());
-                }
-            }
-        }
-
-        /// <summary>
-        /// Выводит информацию обо всех клиентах
-        /// </summary>
-        /// <param name="workerType"></param>
-        public void PrintAllUsers(WorkerType workerType)
-        {
-            if (allUsers.Count == 0) Console.WriteLine("Записей о клиентах нет.");
-            else
-            {
-                Console.WriteLine("Клиенты банка\n");
-                foreach (User user in allUsers)
-                {
-                    user.Print(workerType);
-                    Console.WriteLine();
+                    stream.WriteLine(user);
                 }
             }
         }
@@ -98,7 +83,7 @@ namespace task_11
         /// <param name="newUser"></param>
         public void AddUser(User newUser)
         {
-            allUsers.Add(newUser);
+            AllUsers.Add(newUser);
             WriteUserInFile(newUser);
         }
 
@@ -108,9 +93,9 @@ namespace task_11
         /// <param name="newUser"></param>
         private void WriteUserInFile(User newUser)
         {
-            using (StreamWriter stream = new StreamWriter(fileName, true))
+            using (StreamWriter stream = new StreamWriter(usersFileName, true))
             {
-                stream.WriteLine(newUser.CreateStringForFile());
+                stream.WriteLine(newUser);
             }
         }
 

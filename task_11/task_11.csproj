@@ -74,11 +74,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddNewUserButtonEnabled.cs" />
+    <Compile Include="Department.cs" />
     <Compile Include="PhoneNumberToStringConverter.cs" />
-    <Compile Include="StateMachine.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserControls\AddNewClient.xaml.cs">
+      <DependentUpon>AddNewClient.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\AddNewClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manager.cs" />

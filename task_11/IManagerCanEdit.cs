@@ -3,41 +3,19 @@
     interface IManagerCanEdit:
         IConsultantCanEdit
     {
-        /// <summary>
-        /// Меняет фамилию клиента
-        /// </summary>
-        /// <param name="userToEdit"></param>
-        /// 
-        void ChangeSurname(User userToEdit);
 
-        /// <summary>
-        /// Меняет имя клиента
-        /// </summary>
-        /// <param name="userToEdit"></param>
-        void ChangeName(User userToEdit);
+        void ChangeSurname(User userToEdit, string newSurname);
 
-        /// <summary>
-        /// Меняет отчество клиента
-        /// </summary>
-        /// <param name="userToEdit"></param>
-        void ChangePatronimic(User userToEdit);
+        void ChangeName(User userToEdit, string newName);
 
-        /// <summary>
-        /// Меняет номер телефона клиента
-        /// </summary>
-        /// <param name="userToEdit"></param>
-        new void ChangePhoneNumber(User userToEdit);
+        void ChangePatronimic(User userToEdit, string newPatronymic);
 
-         /// <summary>
-        /// Меняет паспортные данные клиента
-        /// </summary>
-        /// <param name="userToEdit"></param>
-        void ChangePassportInfo(User userToEdit);
+        new bool ChangePhoneNumber(User userToEdit, string newPhoneNumber);
 
-        /// <summary>
-        /// Добавляет нового клиента в репозиторий
-        /// </summary>
-        /// <param name="newUser"></param>
+        void ChangeSeries(User userToEdit, string newSeries);
+
+        void ChangeNumber(User userToEdit, int newNumber);
+
         bool AddNewUser(User newUser);
     }
 }
