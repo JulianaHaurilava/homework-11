@@ -27,83 +27,17 @@ namespace task_11
                 spCurrentPanel = chosenMenu;
             }
         }
-        class AddNewUserButtonEnabled
-        {
-            private bool surnameNotEmpty;
-            public bool SurnameNotEmpty
-            {
-                set => surnameNotEmpty = value;
-            }
-
-            private bool nameNotEmpty;
-            public bool NameNotEmpty
-            {
-                set => nameNotEmpty = value;
-            }
-
-            private bool patronymicNotEmpty;
-            public bool PatronymicNotEmpty
-            {
-                set => patronymicNotEmpty = value;
-            }
-
-            private bool phoneNumberNotEmpty;
-            public bool PhoneNumberNotEmpty
-            {
-                set => phoneNumberNotEmpty = value;
-            }
-
-            private bool departmentNotEmpty;
-            public bool DepartmentNotEmpty
-            {
-                set => departmentNotEmpty = value;
-            }
-
-            private bool seriesNotEmpty;
-            public bool SeriesNotEmpty
-            {
-                set
-                => seriesNotEmpty = value;
-            }
-
-            private bool numberNotEmpty;
-            public bool NumberNotEmpty
-            {
-                set
-                => numberNotEmpty = value;
-            }
-
-            public AddNewUserButtonEnabled()
-            {
-                surnameNotEmpty = false;
-                nameNotEmpty = false;
-                patronymicNotEmpty = false;
-                phoneNumberNotEmpty = false;
-                seriesNotEmpty = false;
-                numberNotEmpty = false;
-            }
-            public bool ButtonIsEnabled()
-            {
-                return surnameNotEmpty && nameNotEmpty && patronymicNotEmpty &&
-                    phoneNumberNotEmpty && numberNotEmpty && seriesNotEmpty;
-            }
-        }
+        
 
         Repository r;
         StateMachine stm;
-        AddNewUserButtonEnabled anu;
 
-        Manager m;
-        Consultant c;
+
         public MainWindow()
         {
             InitializeComponent();
             r = new Repository("all_users.txt", "all_departments.txt");
             stm = new StateMachine();
-            anu = new AddNewUserButtonEnabled();
-
-            m = new Manager(r);
-            c = new Consultant(r);
 
             string[] WorkerTypes = { "Консультант", "Менеджер" };
             cbWorkerType.ItemsSource = WorkerTypes;
@@ -126,7 +60,7 @@ namespace task_11
 
         private void cbWorkerType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            bdMainBorder.Visibility = Visibility.Visible;
+            
             lClientInfo.ItemsSource = r.AllUsers;
             switch ((string)cbWorkerType.SelectedItem)
             {
@@ -193,13 +127,6 @@ namespace task_11
             stm.ChangeState(spManagerMenu);
         }
 
-        private void ReturnToMenuM_ClearInfo(object sender, RoutedEventArgs e)
-        {
-            lClientInfo.SelectedItem = null;
-            stm.ChangeState(spManagerMenu);
-            ClearAllAddingTextBoxes();
-        }
-
         private void ConfirmChangesM(object sender, RoutedEventArgs e)
         {
             lClientInfo.Items.Refresh();
@@ -207,92 +134,7 @@ namespace task_11
             stm.ChangeState(spManagerUserMenu);
         }
 
-        private void SaveNewClientM(object sender, RoutedEventArgs e)
-        {
-            User newUser = new User(tbSurname.Text, tbName.Text, tbPatronymic.Text,
-                tbPhoneNumber.Text, cbDepartmentAdd.Text, tbSeries.Text, int.Parse(tbNumber.Text));
 
-            if (!m.AddNewUser(newUser))
-            {
-                tbxPhoneNumberError.Visibility = Visibility.Visible;
-                return;
-            }
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
-            lClientInfo.Items.Refresh();
-            ClearAllAddingTextBoxes();
-        }
-
-
-
-
-        private void SurnameTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbSurname.Text.Length != 0)
-                anu.SurnameNotEmpty = true;
-            else anu.SurnameNotEmpty = false;
-
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-        }
-        private void NameTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbName.Text.Length != 0)
-                anu.NameNotEmpty = true;
-            else anu.NameNotEmpty = false;
-
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-        }
-        private void PatronymicTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbPatronymic.Text.Length != 0)
-                anu.PatronymicNotEmpty = true;
-            else anu.PatronymicNotEmpty = false;
-
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-        }
-        private void PhoneNumberTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbPhoneNumber.Text.Length != 0)
-                anu.PhoneNumberNotEmpty = true;
-            else anu.PhoneNumberNotEmpty = false;
-
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-            tbxPhoneNumberError.Visibility = Visibility.Hidden;
-        }
-        private void SeriesTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbSeries.Text.Length != 0)
-                anu.SeriesNotEmpty = true;
-            else anu.SeriesNotEmpty = false;
-
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-        }
-        private void NumberTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbNumber.Text.Length != 0)
-                anu.NumberNotEmpty = true;
-            else anu.NumberNotEmpty = false;
-
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-        }
-        private void DepartmentTextChanged(object sender, TextChangedEventArgs e)
-        {
-            anu.DepartmentNotEmpty = true;
-            bSaveNewClientM.IsEnabled = anu.ButtonIsEnabled();
-        }
-
-        private void ClearAllAddingTextBoxes()
-        {
-            tbSurname.Clear();
-            tbName.Clear();
-            tbPatronymic.Clear();
-            tbPhoneNumber.Clear();
-            tbSeries.Clear();
-            tbNumber.Clear();
-        }
-
-        private void DepartmentTextChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        
     }
 }

@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:task_11"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1060">
+        Title="MainWindow"
+        Height="600"
+        Width="1080"
+        ResizeMode="NoResize"
+        Background="Transparent">
     <Window.Resources>
         <local:PhoneNumberToStringConverter x:Key="phoneNumberConverter"/>
         <ControlTemplate TargetType="Button" x:Key="bReturnToMenuTemplate">
@@ -24,56 +28,54 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <ListView x:Name="lClientInfo"
-              HorizontalAlignment="Left"
-              Height="400"
-              Margin="329,10,0,0"
-              VerticalAlignment="Top"
-              SelectionMode="Single"
-              Width="715"
-              SelectionChanged="lClientInfo_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding ID}" Width="90" Header="ID"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Surname}" Width="120" Header="Фамилия"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="80" Header="Имя"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Patronymic}" Width="120" Header="Отчество"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding PhoneNumber}" Width="150" Header="Номер телефона"></GridViewColumn>
-                    <GridViewColumn x:Name="gvcPassportSeries"
-                        Width="50" Header="Серия"></GridViewColumn>
-                    <GridViewColumn x:Name="gvcPassportNumber"
-                        Width="100" Header="Номер паспорта"></GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ComboBox x:Name="cbWorkerType"
-            SelectionChanged="cbWorkerType_SelectionChanged"
-            HorizontalAlignment="Left"
-            Margin="10,10,0,0"
-            VerticalAlignment="Top"
-            Width="310"/>
-        <ComboBox x:Name="cbDepartment"
-            HorizontalAlignment="Left"
-                  Margin="10,47,0,0"
-                  VerticalAlignment="Top"
-                  Width="310">
-            <!--<ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Department}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>-->
-        </ComboBox>
+    <Border
+        Background="#292928">
+        <Grid>
 
-        <StackPanel x:Name="spConsultantMenu"
-                   Visibility="Hidden">
-            <TextBlock
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <ContentControl Margin="10,0,0,0">
+
+            </ContentControl>
+            <StackPanel
+                HorizontalAlignment="Left"
+                Height="80"
+                Margin="10,10,0,0"
+                VerticalAlignment="Top"
+                Width="310" Grid.RowSpan="2">
+                <ComboBox x:Name="cbWorkerType"
+                      SelectionChanged="cbWorkerType_SelectionChanged"
+                      Width="310"/>
+                <ComboBox x:Name="cbDepartment"
+                      HorizontalAlignment="Left"
+                      Margin="0,10,0,0"
+                      VerticalAlignment="Top"
+                      Width="310">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Department}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+
+            <StackPanel x:Name="spConsultantMenu"
+                   Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
+                <TextBlock
             HorizontalAlignment="Center"
             Margin="0,75,0,0"
             TextWrapping="Wrap"
             Text="Меню"
             FontSize="16"/>
-            <Button
+                <Button
                 x:Name="bSortClients"
             Content="Сортировка по алфавиту"
             HorizontalAlignment="Center"
@@ -82,21 +84,21 @@
             Width="170"
             Height="35"
                 Click="SortClients"/>
-        </StackPanel>
-        <StackPanel x:Name="spConsultantUserMenu"
-                   Visibility="Hidden">
-            <Button
+            </StackPanel>
+            <StackPanel x:Name="spConsultantUserMenu"
+                   Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
+                <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuC">
-            </Button>
-            <TextBlock
+                </Button>
+                <TextBlock
             HorizontalAlignment="Center"
             Margin="0,50,0,0"
             TextWrapping="Wrap"
             Text="Меню"
             VerticalAlignment="Top"
             FontSize="16"/>
-            <Button x:Name="bEditClientC"
+                <Button x:Name="bEditClientC"
             Content="Редактировать информацию"
             HorizontalAlignment="Center"
             Margin="0,30,0,0"
@@ -104,24 +106,24 @@
             Width="170"
             Height="35"
             Click="bEditClientC_Click"/>
-        </StackPanel>
-        <StackPanel x:Name="spClientInfoEditC"
-            Visibility="Hidden">
+            </StackPanel>
+            <StackPanel x:Name="spClientInfoEditC"
+            Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
 
 
-            <Button
+                <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuC">
-            </Button>
-            <TextBlock
+                </Button>
+                <TextBlock
                 HorizontalAlignment="Center"
                 Text="Введите новые данные"
                 Margin="0,0,0,15">
-            </TextBlock>
-            <Grid
+                </TextBlock>
+                <Grid
                 Margin="0,5,0,0">
-                <TextBlock Text=" Фамилия: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Фамилия: "></TextBlock>
+                    <TextBox 
                     Margin="0,0,5,0"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
@@ -130,11 +132,11 @@
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Surname}"
                     HorizontalAlignment="Right"
                     IsEnabled="False"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Имя: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Имя: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -142,11 +144,11 @@
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Name}"
                     HorizontalAlignment="Right"
                     IsEnabled="False"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Отчество: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Отчество: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -154,22 +156,22 @@
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Patronymic}"
                     HorizontalAlignment="Right"
                     IsEnabled="False"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Номер телефона: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Номер телефона: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.PhoneNumber, Converter={StaticResource phoneNumberConverter}}"
                     HorizontalAlignment="Right"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Серия: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Серия: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -177,11 +179,11 @@
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.HiddenPassportSeries}"
                     HorizontalAlignment="Right"
                     IsEnabled="False"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Номер паспорта: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Номер паспорта: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -189,24 +191,24 @@
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.HiddenPassportNumber}"
                     HorizontalAlignment="Right"
                     IsEnabled="False"/>
-            </Grid>
+                </Grid>
 
-            <Button x:Name="bConfirmChangesC"
+                <Button x:Name="bConfirmChangesC"
                 Margin="10,30,10,0"
                 Content="Подтвердить изменения"
                 Click="ConfirmChangesC"/>
-        </StackPanel>
+            </StackPanel>
 
-        <StackPanel x:Name="spManagerMenu"
-                   Visibility="Hidden">
-            <TextBlock
+            <StackPanel x:Name="spManagerMenu"
+                   Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
+                <TextBlock
             HorizontalAlignment="Center"
             Margin="0,60,0,0"
             TextWrapping="Wrap"
             Text="Меню"
             VerticalAlignment="Top"
             FontSize="16"/>
-            <Button x:Name="bAddNewClient"
+                <Button x:Name="bAddNewClient"
             Content="Добавить нового клиента"
             HorizontalAlignment="Center"
             Margin="0,20,0,0"
@@ -214,7 +216,7 @@
             Width="170"
             Height="35"
                 Click="bAddNewClient_Click"/>
-            <Button x:Name="bSortClientsM"
+                <Button x:Name="bSortClientsM"
             Content="Сортировка по алфавиту"
             HorizontalAlignment="Center"
             Margin="0,20,0,0"
@@ -222,21 +224,21 @@
             Width="170"
             Height="35"
                 Click="SortClients"/>
-        </StackPanel>
-        <StackPanel x:Name="spManagerUserMenu"
-                   Visibility="Hidden">
-            <Button
+            </StackPanel>
+            <StackPanel x:Name="spManagerUserMenu"
+                   Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
+                <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuM">
-            </Button>
-            <TextBlock
+                </Button>
+                <TextBlock
             HorizontalAlignment="Center"
             Margin="0,35,0,0"
             TextWrapping="Wrap"
             Text="Меню"
             VerticalAlignment="Top"
             FontSize="16"/>
-            <Button x:Name="bEditClientM"
+                <Button x:Name="bEditClientM"
             Content="Редактировать информацию"
             HorizontalAlignment="Center"
             Margin="0,30,0,0"
@@ -244,7 +246,7 @@
             Width="170"
             Height="35"
                 Click="bEditClientM_Click"/>
-            <Button x:Name="bDeleteClient"
+                <Button x:Name="bDeleteClient"
             Content="Удалить запись"
             HorizontalAlignment="Center"
             Margin="0,20,0,0"
@@ -252,23 +254,23 @@
             Width="170"
             Height="35"
                 Click="bDeleteClient_Click"/>
-        </StackPanel>
-        <StackPanel x:Name="spClientInfoEditM"
-            Visibility="Hidden">
+            </StackPanel>
+            <StackPanel x:Name="spClientInfoEditM"
+            Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
 
-            <Button
+                <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuC">
-            </Button>
-            <TextBlock
+                </Button>
+                <TextBlock
                 HorizontalAlignment="Center"
                 Text="Введите новые данные"
                 Margin="0,0,0,15">
 
-            </TextBlock>
-            <Grid>
-                <TextBlock Text=" Фамилия: "></TextBlock>
-                <TextBox 
+                </TextBlock>
+                <Grid>
+                    <TextBlock Text=" Фамилия: "></TextBlock>
+                    <TextBox 
                     Margin="0,0,5,0"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
@@ -276,85 +278,85 @@
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Surname}"
                     HorizontalAlignment="Right"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Имя: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Имя: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Name}"
                     HorizontalAlignment="Right"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Отчество: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Отчество: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.Patronymic}"
                     HorizontalAlignment="Right"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Номер телефона: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Номер телефона: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.PhoneNumber, Converter={StaticResource phoneNumberConverter}}"
                     HorizontalAlignment="Right"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Серия: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Серия: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.HiddenPassportSeries}"
                     HorizontalAlignment="Right"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Номер паспорта: "></TextBlock>
-                <TextBox 
+                    <TextBlock Text=" Номер паспорта: "></TextBlock>
+                    <TextBox 
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     Text="{Binding ElementName=lClientInfo, Path=SelectedItem.HiddenPassportNumber}"
                     HorizontalAlignment="Right"/>
-            </Grid>
+                </Grid>
 
-            <Button x:Name="bConfirmChangesM"
+                <Button x:Name="bConfirmChangesM"
                 Margin="10,30,10,0"
                 Content="Подтвердить изменения"
                 Click="ConfirmChangesM"/>
-        </StackPanel>
-        <StackPanel x:Name="spAddClientM"
+            </StackPanel>
+            <StackPanel x:Name="spAddClientM"
             HorizontalAlignment="Left"
-            Visibility="Visible">
-            <Button
+            Visibility="Hidden" Margin="10,3,0,0" Grid.Row="1">
+                <Button
                 Template="{StaticResource bReturnToMenuTemplate}"
                 Click="ReturnToMenuM_ClearInfo">
-            </Button>
-            <TextBlock
+                </Button>
+                <TextBlock
                 HorizontalAlignment="Center"
                 Text="Введите информацию о новом клиенте"
                 Margin="0,0,0,15">
 
-            </TextBlock>
-            <Grid
+                </TextBlock>
+                <Grid
                 Margin="0,5,0,0">
-                <TextBlock Text=" Фамилия: "></TextBlock>
-                <TextBox x:Name="tbSurname"
+                    <TextBlock Text=" Фамилия: "></TextBlock>
+                    <TextBox x:Name="tbSurname"
                     Margin="0,0,5,0"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
@@ -362,68 +364,68 @@
                     Width="200"
                     HorizontalAlignment="Right"
                     TextChanged="SurnameTextChanged"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Имя: "></TextBlock>
-                <TextBox x:Name="tbName"
+                    <TextBlock Text=" Имя: "></TextBlock>
+                    <TextBox x:Name="tbName"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     HorizontalAlignment="Right"
                     TextChanged="NameTextChanged"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Отчество: "></TextBlock>
-                <TextBox x:Name="tbPatronymic"
+                    <TextBlock Text=" Отчество: "></TextBlock>
+                    <TextBox x:Name="tbPatronymic"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     HorizontalAlignment="Right"
                     TextChanged="PatronymicTextChanged"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Номер телефона: "></TextBlock>
-                <TextBox x:Name="tbPhoneNumber"
+                    <TextBlock Text=" Номер телефона: "></TextBlock>
+                    <TextBox x:Name="tbPhoneNumber"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="200"
                     HorizontalAlignment="Right"
                     TextChanged="PhoneNumberTextChanged"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Департамент: "></TextBlock>
-                <ComboBox x:Name="cbDepartmentAdd"
+                    <TextBlock Text=" Департамент: "></TextBlock>
+                    <ComboBox x:Name="cbDepartmentAdd"
                     Width="200"
                     HorizontalAlignment="Right"
                     SelectionChanged="DepartmentTextChanged"/>
-            </Grid>
-            <Grid
+                </Grid>
+                <Grid
                 Margin="0,5,5,0">
-                <TextBlock Text=" Номер паспорта: "></TextBlock>
-                <TextBox x:Name="tbSeries"
+                    <TextBlock Text=" Номер паспорта: "></TextBlock>
+                    <TextBox x:Name="tbSeries"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="50"
                     HorizontalAlignment="Right"
                     TextChanged="SeriesTextChanged" Margin="0,0,150,0"/>
-                <TextBox x:Name="tbNumber"
+                    <TextBox x:Name="tbNumber"
                     TextWrapping="Wrap"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Width="145"
                     HorizontalAlignment="Right"
                     TextChanged="NumberTextChanged"/>
-            </Grid>
+                </Grid>
 
-            <TextBlock
+                <TextBlock
                 x:Name="tbxPhoneNumberError"
                 Margin="0,5,0,0"
                 Text="Пользователь с таким номером уже зарегистрирован!"
@@ -431,24 +433,37 @@
                 Foreground="Red"
                 Visibility="Hidden">
 
-            </TextBlock>
-            <Button x:Name="bSaveNewClientM"
+                </TextBlock>
+                <Button x:Name="bSaveNewClientM"
                 Margin="10,10,10,0"
                 Content="Добавить"
                 Click="SaveNewClientM"
                 IsEnabled="False"/>
-        </StackPanel>
-        <Border x:Name="bdMainBorder"
-            BorderBrush="Gray"
-            BorderThickness="1"
-            HorizontalAlignment="Left"
-            Height="251"
-            Margin="10,100,0,0"
-            VerticalAlignment="Top"
-            Width="310"
-            Visibility="Hidden"/>
+            </StackPanel>
+
+            <ListView x:Name="lClientInfo"
+                      Background="#F2f2f2"
+                      Grid.Column="1"
+                      Grid.RowSpan="2"
+                      SelectionMode="Single"
+                      SelectionChanged="lClientInfo_SelectionChanged"
+                      Margin="9.6,10,9.6,10.4">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding ID}" Width="90" Header="ID"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Surname}" Width="120" Header="Фамилия"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="80" Header="Имя"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Patronymic}" Width="120" Header="Отчество"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding PhoneNumber}" Width="150" Header="Номер телефона"/>
+                        <GridViewColumn x:Name="gvcPassportSeries" Width="50" Header="Серия"/>
+                        <GridViewColumn x:Name="gvcPassportNumber" Width="100" Header="Номер паспорта"/>
+                    </GridView>
+                </ListView.View>
 
 
+            </ListView>
 
-    </Grid>
+
+        </Grid>
+    </Border>
 </Window>

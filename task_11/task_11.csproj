@@ -145,5 +145,6 @@
   <ItemGroup>
     <Resource Include="Resources\cross-mark-button-emoji-clipart-xl.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

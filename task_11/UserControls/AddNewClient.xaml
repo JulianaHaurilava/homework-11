@@ -4,118 +4,138 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:task_11.UserControls"
-             mc:Ignorable="d" Height="250" Width="310">
+             mc:Ignorable="d" 
+             d:DesignHeight="250"
+             d:DesignWidth="310"
+             Background="#dadada">
+    
     <Grid>
-        <StackPanel x:Name="spAddClientM"
-            HorizontalAlignment="Left"
-            Visibility="Visible"
-            Height="250"
-            Width="310">
-            <Button
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="195"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Button Grid.Column="2"
                 HorizontalAlignment="Right"
-                Width="20"
                 Click="ReturnToMenuM_ClearInfo">
-                <Image Source="Resources\cross-mark-button-emoji-clipart-xl.png"></Image>
-            </Button>
-            <TextBlock
-                HorizontalAlignment="Center"
-                Text="Введите информацию о новом клиенте"
-                Margin="0,0,0,15">
+        </Button>
+        <TextBlock Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   Text="Введите информацию о новом клиенте"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-            </TextBlock>
-            <Grid
-                Margin="0,5,0,0">
-                <TextBlock Text=" Фамилия: "></TextBlock>
-                <TextBox x:Name="tbSurname"
-                    Margin="0,0,5,0"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Width="200"
-                    HorizontalAlignment="Right"
-                    TextChanged="SurnameTextChanged"/>
-            </Grid>
-            <Grid
-                Margin="0,5,5,0">
-                <TextBlock Text=" Имя: "></TextBlock>
-                <TextBox x:Name="tbName"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Width="200"
-                    HorizontalAlignment="Right"
-                    TextChanged="NameTextChanged"/>
-            </Grid>
-            <Grid
-                Margin="0,5,5,0">
-                <TextBlock Text=" Отчество: "></TextBlock>
-                <TextBox x:Name="tbPatronymic"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Width="200"
-                    HorizontalAlignment="Right"
-                    TextChanged="PatronymicTextChanged"/>
-            </Grid>
-            <Grid
-                Margin="0,5,5,0">
-                <TextBlock Text=" Номер телефона: "></TextBlock>
-                <TextBox x:Name="tbPhoneNumber"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Width="200"
-                    HorizontalAlignment="Right"
-                    TextChanged="PhoneNumberTextChanged"/>
-            </Grid>
-            <Grid
-                Margin="0,5,5,0">
-                <TextBlock Text=" Департамент: "></TextBlock>
-                <ComboBox x:Name="cbDepartmentAdd"
-                    Width="200"
-                    HorizontalAlignment="Right"
-                    SelectionChanged="DepartmentTextChanged"/>
-            </Grid>
-            <Grid
-                Margin="0,5,5,0">
-                <TextBlock Text=" Номер паспорта: "></TextBlock>
-                <TextBox x:Name="tbSeries"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Width="50"
-                    HorizontalAlignment="Right"
-                    TextChanged="SeriesTextChanged" Margin="0,0,150,0"/>
-                <TextBox x:Name="tbNumber"
-                    TextWrapping="Wrap"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Width="145"
-                    HorizontalAlignment="Right"
-                    TextChanged="NumberTextChanged"/>
-            </Grid>
+        <TextBlock Grid.Row="2"
+                   Text="Фамилия:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,0"/>
+        <TextBox x:Name="tbSurname"
+                 Margin="2,2,5,2"
+                 Grid.ColumnSpan="2"
+                 Grid.Column="1"
+                 Grid.Row="2"
+                 TextChanged="tbSurname_TextChanged"/>
 
-            <TextBlock
-                x:Name="tbxPhoneNumberError"
-                Margin="0,5,0,0"
-                Text="Пользователь с таким номером уже зарегистрирован!"
-                HorizontalAlignment="Center"
-                Foreground="Red"
-                Visibility="Hidden">
+        <TextBlock Grid.Row="3"
+                   Text="Имя:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,0"/>
+        <TextBox x:Name="tbName"
+                 Margin="2,2,5,2"
+                 Grid.ColumnSpan="2"
+                 Grid.Column="1"
+                 Grid.Row="3"
+                 TextChanged="tbName_TextChanged"/>
 
-            </TextBlock>
-            <Button x:Name="bSaveNewClientM"
-                Margin="10,10,10,0"
+        <TextBlock Grid.Row="4"
+                   Text="Отчество:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,0"/>
+        <TextBox x:Name="tbPatronymic"
+                 Margin="2,2,5,2"
+                 Grid.ColumnSpan="2"
+                 Grid.Column="1"
+                 Grid.Row="4"
+                 TextChanged="tbPatronymic_TextChanged"/>
+
+        <TextBlock Grid.Row="5"
+                   Text="Телефон:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,0"/>
+        <TextBox x:Name="tbPhoneNumber"
+                 Margin="2,2,5,2"
+                 Grid.ColumnSpan="2"
+                 Grid.Column="1"
+                 Grid.Row="5"
+                 TextChanged="tbPhoneNumber_TextChanged"/>
+
+        <TextBlock Grid.Row="6"
+                   Text="Департамент:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,0"/>
+        <ComboBox x:Name="cbDepartment"
+                 Margin="2,2,5,2"
+                 Grid.ColumnSpan="2"
+                 Grid.Column="1"
+                 Grid.Row="6"
+                 SelectionChanged="tbDepartment_SelectionChanged"/>
+
+        <TextBlock Grid.Row="7"
+                   Text="Паспорт:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="5,0,0,0"/>
+        <TextBox x:Name="tbSeries"
+                 Margin="2"
+                 Grid.Column="1"
+                 Grid.Row="7"
+                 TextChanged="tbSeries_TextChanged"/>
+        <TextBox x:Name="tbNumber"
+                 Margin="3,2,4,2"
+                 Grid.Column="2"
+                 Grid.Row="7"
+                 TextChanged="tbNumber_TextChanged"/>
+
+        <TextBlock x:Name="tbError"
+                   Foreground="red"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="8"
+                   Text="Клиент с таким номером уже зарегистрирован!"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Visibility="Hidden"/>
+
+        <Button x:Name="bAddNewClient"
+                Background="White"
+                Grid.ColumnSpan="3"
+                Grid.Row="9"
                 Content="Добавить"
-                Click="SaveNewClientM"
-                IsEnabled="False"/>
-        </StackPanel>
-        <Border x:Name="bdMainBorder"
-            BorderBrush="Gray"
-            BorderThickness="1"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Visibility="Visible"/>
+                Width="150"
+                Margin="3"
+                IsEnabled="False"
+                Click="bAddNewClient_Click"/>
+
+
+
 
     </Grid>
 </UserControl>
